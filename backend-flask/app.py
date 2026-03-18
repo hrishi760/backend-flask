@@ -115,6 +115,14 @@ def api_route():
 
     return jsonify({'message': '/API endpoint called !'}), 200
 
+from flask import redirect
+
+@app.route('/api/redirect', methods=['GET'])
+def open_redirect():
+    url = request.args.get('url')
+
+    # ❌ Vulnerability: Open redirect (no validation)
+    return redirect(url)
 
 @app.route('/api/grade-submission', methods=['POST'])
 def grade_submission():
