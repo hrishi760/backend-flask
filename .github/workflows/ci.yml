@@ -32,7 +32,7 @@ jobs:
           args: --file=backend-flask/requirements.txt
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
+          
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
