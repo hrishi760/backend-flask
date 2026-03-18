@@ -1,4 +1,4 @@
-name: Backend SonarCloud
+name: Backend SonarQube
 
 on:
   push:
@@ -12,8 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -32,13 +30,13 @@ jobs:
           args: --file=backend-flask/requirements.txt
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          
+
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+        uses: SonarSource/sonarqube-scan-action@v6
         with:
-          projectBaseDir: backend-flask
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.sources=backend-flask
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
